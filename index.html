@@ -1,12 +1,134 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>task 1</title>
-</head>
-<body>
-    
-    <script src="app.js"></script>
-</body>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>Todo List</title>
+		<script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+		<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+				list-style: none;
+				border: none;
+				background-color: transparent;
+				outline: none;
+			}
+			input:-webkit-autofill,
+			input:-webkit-autofill:hover,
+			input:-webkit-autofill:focus,
+			input:-webkit-autofill:active {
+				transition: background-color 5000s ease-in-out 0s;
+			}
+			.remove,
+			.submit {
+				cursor: pointer;
+			}
+			input {
+				font-size: 20px;
+			}
+			body {
+				font-family: Roboto;
+				color: #353535;
+			}
+			#root {
+				margin: 0 auto;
+				padding: 50px 15px;
+				max-width: 530px;
+			}
+			h1 {
+				margin-bottom: 60px;
+				font-size: 52px;
+			}
+			li {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				margin-bottom: 40px;
+				height: 50px;
+				font-size: 22px;
+				line-height: 27px;
+				border-radius: 8px;
+				padding: 10px;
+                position: relative;
+			}
+            li::after {
+                content: '';
+                display: block;
+                position: absolute;
+                bottom: -20px;
+                width: 100%;
+                height: 1px;
+                background-color: #353535;
+                opacity: .2;
+            }
+			li input {
+				margin-right: 35px;
+			}
+			.addTodo {
+				display: flex;
+				align-items: center;
+				padding: 10px;
+				width: 100%;
+				height: 65px;
+				border: 1px solid #dd9c9a;
+				border-radius: 8px;
+				margin-bottom: 50px;
+			}
+			input {
+				flex: 1;
+			}
+			.left {
+				display: flex;
+			}
+			label {
+				position: relative;
+				display: flex;
+				font-size: 17px;
+			}
+			.checkbox {
+				position: absolute;
+				opacity: 0;
+				cursor: pointer;
+				height: 0;
+				width: 0;
+			}
+			.checkmark {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				border-radius: 50%;
+				width: 24px;
+				height: 24px;
+				margin-right: 35px;
+				border: 2px solid grey;
+				cursor: pointer;
+				background-color: transparent;
+			}
+			.checkmark svg {
+				height: 100%;
+				fill: #fff;
+				left: 0;
+				height: 19px;
+				width: 19px;
+			}
+
+			input[type='checkbox']:checked ~ .checkmark {
+				border-color: #dd9c9a;
+				background-color: #dd9c9a;
+			}
+			input[type='checkbox']:checked ~ .content {
+				text-decoration: line-through;
+			}
+		</style>
+		<!-- Don't use this in production: -->
+		<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+	</head>
+	<body>
+		<div id="root"></div>
+
+		<!-- scripts -->
+		<script src="script/main.js"></script>
+	</body>
 </html>
