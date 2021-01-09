@@ -196,8 +196,6 @@ class TodoList extends React.Component {
 }
 
 ReactDOM.render(
-	<div>
-		<TodoList />
-	</div>,
+	<TodoList />,
 	rootContainer
 )

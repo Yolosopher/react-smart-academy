@@ -278,8 +278,4 @@ var TodoList = function (_React$Component2) {
 	return TodoList;
 }(React.Component);
 
-ReactDOM.render(React.createElement(
-	'div',
-	null,
-	React.createElement(TodoList, null)
-), rootContainer);
+ReactDOM.render(React.createElement(TodoList, null), rootContainer);
