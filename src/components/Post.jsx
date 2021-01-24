@@ -1,49 +1,58 @@
-import React from 'react'
+import React, { Component } from 'react'
 import styled from 'styled-components'
 import Img from './Img'
 import Like from './Like'
 
-export default function Post(props) {
-	return (
-		<Li className='li' key={props.id}>
-			<div className='li__top'>
-				<Img
-					style={{ objectFit: 'cover' }}
-					src={props.userImage}
-					alt='post-image'
-				/>
-				<div className='li__top__NmTm'>
-					<h2>{props.user}</h2>
-					<p>{props.date}</p>
-				</div>
-			</div>
 
-			<p className='realText'>{props.text}</p>
-			{props.image && (
-				<img className='realImage' src={props.image} alt='' />
-			)}
-			<div className='li__realbottom'>
-				<div
-					className='li__bottom'
-					onClick={() => {
-						props.like(props.id)
-					}}
-				>
-					<Like />
-					{props.isLiked}
+
+export default class Post extends Component {
+	constructor(props) {
+		super(props)
+
+		this.delete = 
+	}
+	render() {
+		return (
+			<Li className='li' key={props.id}>
+				<div className='li__top'>
+					<Img
+						style={{ objectFit: 'cover' }}
+						src={props.userImage}
+						alt='post-image'
+					/>
+					<div className='li__top__NmTm'>
+						<h2>{props.user}</h2>
+						<p>{props.date}</p>
+					</div>
 				</div>
-				<button
-					type='button'
-					onClick={() => {
-						props.delete(props.id)
-					}}
-					className='deleteBtn'
-				>
-					remove post
-				</button>
-			</div>
-		</Li>
-	)
+
+				<p className='realText'>{props.text}</p>
+				{props.image && (
+					<img className='realImage' src={props.image} alt='' />
+				)}
+				<div className='li__realbottom'>
+					<div
+						className='li__bottom'
+						onClick={() => {
+							like(props.id)
+						}}
+					>
+						<Like />
+						{props.isLiked}
+					</div>
+					<button
+						type='button'
+						onClick={() => {
+							props.like(props.id)
+						}}
+						className='deleteBtn'
+					>
+						remove post
+					</button>
+				</div>
+			</Li>
+		)
+	}
 }
 
 const Li = styled.li`

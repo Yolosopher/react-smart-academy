@@ -45,7 +45,7 @@ export default class App extends Component {
 			image = await this.convertBase64(image)
 		}
 
-		let date = Date.now()
+		let unicdate = Date.now()
 		let realDate = new Date().toLocaleString([], {
 			month: '2-digit',
 			day: '2-digit',
@@ -54,7 +54,7 @@ export default class App extends Component {
 		})
 
 		let newPost = {
-			id: `${date}`,
+			id: `${unicdate}`,
 			user: `${this.user.firstName} ${this.user.lastName}`,
 			date: realDate,
 			text: text,
@@ -78,45 +78,33 @@ export default class App extends Component {
 	}
 
 	liking(key) {
-		// let list = [...this.state.posts].map((post) => {
-		// 	if (post.key === key) {
-		// 		post.isLiked += 1
-		// 	}
-		// 	return post
-		// })
-		let list = []
-		for (let i = 0; i < this.state.posts.length; i++) {
-			if (this.state.posts[i].id === key) {
-				this.state.posts[i] = +this.state.posts[i] + 1
-			}
-			list.push(this.state.posts[i])
-		}
-
-		this.setState(() => {
-			localStorage.setItem('posts', JSON.stringify(list))
+		this.setState((prevState) => {
+			let newPosts = prevState.posts.map((post) => {
+				if (post.key === key) {
+					console.log(post)
+					post.isLiked += 1
+				} else {
+					return post
+				}
+			})
 			return {
-				posts: list,
+				posts: newPosts,
 			}
 		})
 	}
 
 	deleting(key) {
-		// let list = [...this.state.posts].filter(post => {
-		// 	if (post.key !== key) {
-		// 		return post
-		// 	}
-		// })
-		let list = []
-		for (let i = 0; i < this.state.posts.length; i++) {
-			if (this.state.posts[i].id !== key) {
-				list.push(this.state.posts[i])
-			}
-		}
-		console.log(list)
-		this.setState(() => {
-			localStorage.setItem('posts', JSON.stringify(list))
+		console.log(key);
+		this.setState((prevState) => {
+			let newList = prevState.posts.filter((post) => {
+				console.log(post.key);
+				return post.key != key
+			})
+			console.log(newList)
+			localStorage.setItem('posts', JSON.stringify(newList))
+
 			return {
-				posts: list,
+				posts: newList,
 			}
 		})
 	}
