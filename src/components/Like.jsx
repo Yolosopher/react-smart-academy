@@ -13,6 +13,7 @@ export default function Like() {
 			<metadata>
 				{' '}
 				Svg Vector Icons : http://www.onlinewebfonts.com/icon{' '}
+				
 			</metadata>
 			<g>
 				<g>
