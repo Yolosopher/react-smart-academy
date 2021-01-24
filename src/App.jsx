@@ -18,8 +18,8 @@ export default class App extends Component {
 		this.user = MainUser
 
 		this.handleSubmit = this.handleSubmit.bind(this)
-		this.liking = this.liking.bind(this)
-		this.deleting = this.deleting.bind(this)
+		this.handleLike = this.handleLike.bind(this)
+		this.handleDelete = this.handleDelete.bind(this)
 	}
 	convertBase64(file) {
 		return new Promise((resolve, reject) => {
@@ -54,7 +54,7 @@ export default class App extends Component {
 		})
 
 		let newPost = {
-			id: `${unicdate}`,
+			key: `${unicdate}`,
 			user: `${this.user.firstName} ${this.user.lastName}`,
 			date: realDate,
 			text: text,
@@ -77,7 +77,7 @@ export default class App extends Component {
 		})
 	}
 
-	liking(key) {
+	handleLike(key) {
 		this.setState((prevState) => {
 			let newPosts = prevState.posts.map((post) => {
 				if (post.key === key) {
@@ -87,25 +87,23 @@ export default class App extends Component {
 					return post
 				}
 			})
-			return {
-				posts: newPosts,
-			}
+			return {posts: newPosts}
 		})
 	}
 
-	deleting(key) {
+	handleDelete(key) {
 		console.log(key);
 		this.setState((prevState) => {
 			let newList = prevState.posts.filter((post) => {
 				console.log(post.key);
 				return post.key != key
 			})
-			console.log(newList)
-			localStorage.setItem('posts', JSON.stringify(newList))
+		// 	console.log(newList)
+		// 	localStorage.setItem('posts', JSON.stringify(newList))
 
-			return {
-				posts: newList,
-			}
+		// 	return {
+		// 		posts: newList,
+		// 	}
 		})
 	}
 
@@ -155,15 +153,16 @@ export default class App extends Component {
 						{this.state.posts.reverse().map((post) => {
 							return (
 								<Post
-									key={post.id}
+									key={post.key}
+									keyForUse={post.key}
 									date={post.date}
 									user={post.user}
 									text={post.text}
 									image={post.image}
 									userImage={post.userImage}
 									isLiked={post.isLiked}
-									like={this.liking}
-									delete={this.deleting}
+									like={this.handleLike}
+									delete={this.handleDelete}
 								/>
 							)
 						})}

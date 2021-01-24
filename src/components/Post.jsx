@@ -3,47 +3,54 @@ import styled from 'styled-components'
 import Img from './Img'
 import Like from './Like'
 
-
-
-export default class Post extends Component {
+class Post extends Component {
 	constructor(props) {
 		super(props)
+		this.props = props
+		this.id = props.key
+		this.delete = this.delete.bind(this)
+		this.like = this.like.bind(this)
+	}
 
-		this.delete = 
+	delete(key) {
+		this.props.delete(this.id)
+	}
+	like(key) {
+		this.props.like(this.id)
 	}
 	render() {
 		return (
-			<Li className='li' key={props.id}>
+			<Li className='li' id={this.id}>
 				<div className='li__top'>
 					<Img
 						style={{ objectFit: 'cover' }}
-						src={props.userImage}
+						src={this.props.userImage}
 						alt='post-image'
 					/>
 					<div className='li__top__NmTm'>
-						<h2>{props.user}</h2>
-						<p>{props.date}</p>
+						<h2>{this.props.user}</h2>
+						<p>{this.props.date}</p>
 					</div>
 				</div>
 
-				<p className='realText'>{props.text}</p>
-				{props.image && (
-					<img className='realImage' src={props.image} alt='' />
+				<p className='realText'>{this.props.text}</p>
+				{this.props.image && (
+					<img className='realImage' src={this.props.image} alt='' />
 				)}
 				<div className='li__realbottom'>
 					<div
 						className='li__bottom'
 						onClick={() => {
-							like(props.id)
+							this.like(this.id)
 						}}
 					>
 						<Like />
-						{props.isLiked}
+						{this.props.isLiked}
 					</div>
 					<button
 						type='button'
 						onClick={() => {
-							props.like(props.id)
+							this.delete(this.id)
 						}}
 						className='deleteBtn'
 					>
@@ -95,3 +102,4 @@ const Li = styled.li`
 		}
 	}
 `
+export default Post
