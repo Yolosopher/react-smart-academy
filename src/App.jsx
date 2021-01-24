@@ -87,18 +87,11 @@ export default class App extends Component {
 
 			for(let i = 0; i < prevStateNew.length; i++) {
 				if (prevStateNew[i].key === key) {
-					prevStateNew[i].isLiked = +prevStateNew[i].isLiked + 0.5
+					prevStateNew[i].isLiked = +prevStateNew[i].isLiked + 1
 				}
 				newPosts = [...newPosts, prevStateNew[i]]
 			}
-
-			// let newPosts = prevStateNew.map((post) => {
-			// 	if (post.key === key) {
-			// 		let newNum = post.isLiked + 1
-			// 		post.isLiked = newNum
-			// 		return post
-			// 	}
-			// }) 
+			localStorage.setItem('posts', JSON.stringify(newPosts))
 			return {
 				posts: newPosts,
 			}
@@ -106,10 +99,8 @@ export default class App extends Component {
 	}
 
 	handleDelete(key) {
-		// console.log(key);
 		this.setState((prevState) => {
 			let newList = prevState.posts.filter((post) => post.key !== key)
-			console.log(newList)
 			localStorage.setItem('posts', JSON.stringify(newList))
 
 			return {
@@ -161,7 +152,7 @@ export default class App extends Component {
 				</form>
 				<section className='posts'>
 					<ul>
-						{this.state.posts.reverse().map((post) => {
+						{this.state.posts.sort((a, b) => b.key - a.key).map((post) => {
 							return (
 								<Post
 									key={post.key}
