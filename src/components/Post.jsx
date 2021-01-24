@@ -4,19 +4,11 @@ import Img from './Img'
 import Like from './Like'
 
 class Post extends Component {
-	constructor(props) {
-		super(props)
-		this.props = props
-		this.id = props.key
-		this.delete = this.delete.bind(this)
-		this.like = this.like.bind(this)
-	}
-
 	delete(key) {
-		this.props.delete(this.id)
+		this.props.delete(key)
 	}
 	like(key) {
-		this.props.like(this.id)
+		this.props.like(key)
 	}
 	render() {
 		return (
@@ -41,16 +33,16 @@ class Post extends Component {
 					<div
 						className='li__bottom'
 						onClick={() => {
-							this.like(this.id)
+							this.like(this.props.id)
 						}}
 					>
 						<Like />
-						{this.props.isLiked}
+						{`${this.props.isLiked}`}
 					</div>
 					<button
 						type='button'
 						onClick={() => {
-							this.delete(this.id)
+							this.delete(this.props.id)
 						}}
 						className='deleteBtn'
 					>
@@ -86,6 +78,7 @@ const Li = styled.li`
 		.li__bottom {
 			display: flex;
 			align-items: center;
+			margin-bottom: 20px;
 			svg {
 				cursor: pointer;
 			}
@@ -99,6 +92,27 @@ const Li = styled.li`
 			object-fit: cover;
 			width: calc(1 / 3 * 100%);
 			margin-bottom: 20px;
+		}
+		.deleteBtn {
+			border: none;
+			background: none;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: 200px;
+			height: 55px;
+			border: 2px solid #ecebf1;
+			cursor: pointer;
+			border-radius: 12px;
+			font-size: 22px;
+			font-weight: 600;
+			color: #111;
+			transition: all .1s ease-out;
+			&:hover {
+				border-color: #111;
+				color: #ecebf1;
+				background-color: #111;
+			}
 		}
 	}
 `

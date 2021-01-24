@@ -79,31 +79,42 @@ export default class App extends Component {
 
 	handleLike(key) {
 		this.setState((prevState) => {
-			let newPosts = prevState.posts.map((post) => {
-				if (post.key === key) {
-					console.log(post)
-					post.isLiked += 1
-				} else {
-					return post
+			let prevStateNew = [...prevState.posts]
+
+			console.log(prevStateNew);
+
+			let newPosts = [];
+
+			for(let i = 0; i < prevStateNew.length; i++) {
+				if (prevStateNew[i].key === key) {
+					prevStateNew[i].isLiked = +prevStateNew[i].isLiked + 0.5
 				}
-			})
-			return {posts: newPosts}
+				newPosts = [...newPosts, prevStateNew[i]]
+			}
+
+			// let newPosts = prevStateNew.map((post) => {
+			// 	if (post.key === key) {
+			// 		let newNum = post.isLiked + 1
+			// 		post.isLiked = newNum
+			// 		return post
+			// 	}
+			// }) 
+			return {
+				posts: newPosts,
+			}
 		})
 	}
 
 	handleDelete(key) {
-		console.log(key);
+		// console.log(key);
 		this.setState((prevState) => {
-			let newList = prevState.posts.filter((post) => {
-				console.log(post.key);
-				return post.key != key
-			})
-		// 	console.log(newList)
-		// 	localStorage.setItem('posts', JSON.stringify(newList))
+			let newList = prevState.posts.filter((post) => post.key !== key)
+			console.log(newList)
+			localStorage.setItem('posts', JSON.stringify(newList))
 
-		// 	return {
-		// 		posts: newList,
-		// 	}
+			return {
+				posts: newList,
+			}
 		})
 	}
 
@@ -154,7 +165,7 @@ export default class App extends Component {
 							return (
 								<Post
 									key={post.key}
-									keyForUse={post.key}
+									id={post.key}
 									date={post.date}
 									user={post.user}
 									text={post.text}
