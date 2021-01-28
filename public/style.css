@@ -7,4 +7,9 @@
 body {
     background-color: #f7f8fa;
     font-family: Roboto;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }
