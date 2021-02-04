@@ -87,9 +87,10 @@ export default class App extends Component {
 
 			for(let i = 0; i < prevStateNew.length; i++) {
 				if (prevStateNew[i].key === key) {
-					prevStateNew[i].isLiked = +prevStateNew[i].isLiked + 1
+					prevStateNew[i].isLiked++ //prevStateNew[i].isLiked + 1
 				}
 				newPosts = [...newPosts, prevStateNew[i]]
+				console.log(prevStateNew[i]);
 			}
 			localStorage.setItem('posts', JSON.stringify(newPosts))
 			return {
