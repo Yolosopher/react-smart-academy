@@ -1,39 +1,30 @@
-import React, { Component } from 'react'
-import { Formik } from 'formik'
+import React from 'react'
+import { useQuery, gql } from '@apollo/client'
 
-const Form = (props) => {
-	console.log('formik props => ', props)
-	const { values, errors, handleChange, handleSubmit } = props
-	return (
-		<Formik onSubmit={handleSubmit}>
-			<label htmlFor='email'>
-				Email:
-				<input type='email' name='email' id='email' />
-			</label>
-			<label htmlFor='text'>
-				Text:
-				<input type='text' name='text' id='text' />
-			</label>
-			<button type="submit">Submit</button>
-		</Formik>
-	)
-}
-
-export default class App extends Form() {
-	constructor(props) {
-		super(props)
+const GET_JOBS = gql`
+	query {
+		jobs {
+			id
+			title
+			slug
+			userEmail
+		}
 	}
+`
 
-	handleSubmit(e) {
-		e.preventDefault()
-		console.log(e.target.email)
-		console.log(e.target.text)
+export default function App() {
+	const [getJobs, { loading, error, data }] = useQuery(GET_JOBS)
+
+	console.log('loading ', loading, 'error ', error, 'data ', data)
+
+	if (loading) {
+		return <div>loading...</div>
 	}
-	render() {
+	return (data.jobs.map((job) => {
 		return (
-			<>
-				<Form />
-			</>
+			<div key={job.id}>
+				<h1>{job.title}</h1>
+			</div>
 		)
-	}
+	}))
 }
